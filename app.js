@@ -35,6 +35,7 @@ function maxValue(stringArray) {
     return stringArray.reduce((previous, current) => previous.length > current.length ? previous : current, '');
 }
 console.log(maxValue(['Steve', 'Jobs']));
+// homework
 function binarySearch(numberArray, target) {
     let left = 0;
     let right = numberArray.length - 1;
@@ -55,18 +56,66 @@ function binarySearch(numberArray, target) {
     return firstIndex;
 }
 console.log(binarySearch([1, 2, 3, 4, 5, 6, 7, 8, 9], 4));
-function grouppedWords(array) {
-    for (let i = 0; i < array.length; i++) {
-        for (let j = 0; j < array.length - 1 - i; j++) {
-            if (array[j].length > array[j + 1].length) {
-                debugger;
-                let temp = array[j];
-                array[j] = array[j + 1];
-                array[j + 1] = temp;
-            }
+function grouppedWords(arrayWords) {
+    let grouppedWords = {};
+    arrayWords.forEach((word) => {
+        let id = word.length;
+        if (!grouppedWords[id]) {
+            grouppedWords[id] = [];
         }
-    }
-    return array;
+        grouppedWords[id].push(word);
+    });
+    return grouppedWords;
 }
-let ungrouppedArray = ['Steeve', 'Alex', 'Jessica'];
+let ungrouppedArray = ['aa', 'bbb', 'ccc', 'dddd'];
 console.log(grouppedWords(ungrouppedArray));
+var Role;
+(function (Role) {
+    Role[Role["ADMINISTRATOR"] = 0] = "ADMINISTRATOR";
+    Role[Role["USER"] = 1] = "USER";
+    Role[Role["MODERATOR"] = 2] = "MODERATOR";
+})(Role || (Role = {}));
+function getPermissions(role) {
+    switch (role) {
+        case (Role.ADMINISTRATOR): return '1';
+        case (Role.USER): return '2';
+        case (Role.MODERATOR): return '3';
+        default: return '0';
+    }
+}
+function displayPersonInfo(person) {
+    let [firstName, lastName, age] = person;
+    return `${firstName}, ${lastName}, ${age}`;
+}
+function buildMessage(message, prefix, sufix = '.') {
+    let fullMessage = message;
+    if (prefix !== undefined) {
+        fullMessage = message + prefix;
+    }
+    fullMessage = message + sufix;
+    return fullMessage;
+}
+var HTTPSTATUS;
+(function (HTTPSTATUS) {
+    HTTPSTATUS[HTTPSTATUS["Continiue"] = 100] = "Continiue";
+    HTTPSTATUS[HTTPSTATUS["OK"] = 200] = "OK";
+    HTTPSTATUS[HTTPSTATUS["MultipleChoices"] = 300] = "MultipleChoices";
+    HTTPSTATUS[HTTPSTATUS["BadRequest"] = 400] = "BadRequest";
+    HTTPSTATUS[HTTPSTATUS["Internal"] = 500] = "Internal";
+})(HTTPSTATUS || (HTTPSTATUS = {}));
+function getStatus(status) {
+    switch (status) {
+        case HTTPSTATUS.Continiue: return 'Continiue';
+        case HTTPSTATUS.OK: return 'OK';
+        case HTTPSTATUS.MultipleChoices: return 'Multiple Choices';
+        case HTTPSTATUS.BadRequest: return 'Bad Request';
+        case HTTPSTATUS.Internal: return 'Internal Server Error';
+        default: return 'Unknown status';
+    }
+}
+function formatPrice(price, currency) {
+    if (currency !== 'indefined') {
+        currency = 'USD';
+    }
+    return `${price} ${currency}`;
+}

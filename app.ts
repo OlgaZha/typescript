@@ -72,18 +72,74 @@ function binarySearch(numberArray: number[], target: number): number {
 
 console.log(binarySearch([1,2,3,4,5,6,7,8,9], 4));
 
-function grouppedWords(array: string[]): string[] {
-    for(let i = 0; i < array.length; i++) {
-        for(let j = 0; j < array.length - 1 - i; j++) {
-            if(array[j].length > array[j + 1].length) {
-                let temp = array[j];
-                array[j] = array[j + 1];
-                array[j + 1] = temp;
-            }
-        }
-    }
-    return array;
+function grouppedWords(arrayWords: string[]): {[key: number]: string[]} {
+    let grouppedWords: {[key: number]: string[]} = {};
+    arrayWords.forEach((word: string) => {
+        let id = word.length;
+        if(!grouppedWords[id]) {
+            grouppedWords[id] = []
+        } 
+        grouppedWords[id].push(word);
+    })
+    return grouppedWords;
 }
 
-let ungrouppedArray: string[] = ['Steeve', 'Alex', 'Jessica'];
+let ungrouppedArray: string[] = ['aa', 'bbb', 'ccc', 'dddd'];
 console.log(grouppedWords(ungrouppedArray))
+
+
+enum Role {
+    ADMINISTRATOR, 
+    USER, 
+    MODERATOR
+}
+
+function getPermissions(role: Role): string {
+    switch(role) {
+        case(Role.ADMINISTRATOR): return '1';
+        case(Role.USER): return '2';
+        case(Role.MODERATOR): return '3';
+        default: return '0'
+    }
+}
+
+type Person = [string, string, number];
+function displayPersonInfo(person: Person): string {
+    let[firstName, lastName, age] = person;
+    return `${firstName}, ${lastName}, ${age}`
+}
+
+function buildMessage(message: string, prefix?: string, sufix:string='.'): string {
+    let fullMessage = message
+    if(prefix !== undefined) {
+        fullMessage = message + prefix
+    }
+    fullMessage = message + sufix;
+    return fullMessage;
+}
+
+enum HTTPSTATUS {
+    Continiue = 100,
+    OK = 200,
+    MultipleChoices = 300,
+    BadRequest = 400,
+    Internal = 500
+}
+
+function getStatus(status: HTTPSTATUS): string {
+    switch(status) {
+        case HTTPSTATUS.Continiue: return 'Continiue';
+        case HTTPSTATUS.OK: return 'OK';
+        case HTTPSTATUS.MultipleChoices: return 'Multiple Choices';
+        case HTTPSTATUS.BadRequest: return 'Bad Request';
+        case HTTPSTATUS.Internal: return 'Internal Server Error';
+        default: return 'Unknown status'
+    }
+}
+
+function formatPrice(price: number, currency?: string): string {
+    if(currency !== 'indefined') {
+        currency = 'USD'
+    }
+    return `${price} ${currency}`
+}
