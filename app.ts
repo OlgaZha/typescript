@@ -178,9 +178,9 @@ class CustomedOrder {
         } else if (typeof arg1 === 'string' && typeof arg2 === 'number' && typeof arg3 === 'number' && typeof arg4 === 'string') {
             let now = new Date();
             if (arg4 === 'food') {
-                this.items.push(new FoodItem(arg1, arg2, arg3, now, true)); // допустим, всегда vegan = true для примера
+                this.items.push(new FoodItem(arg1, arg2, arg3, now, true)); 
             } else if (arg4 === 'drink') {
-                this.items.push(new DrinkItem(arg1, arg2, arg3, now, false)); // допустим, всегда isAlcoholic = false
+                this.items.push(new DrinkItem(arg1, arg2, arg3, now, false)); 
             }
         } else {
             console.log('Invalid arguments provided to addItem');
