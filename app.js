@@ -1,115 +1,72 @@
 "use strict";
-class Product {
-    constructor(id, name, price) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
+//generic
+function returnFirstElement(items) {
+    return items[0];
+}
+let numbers = [1, 6, 4, 2, 7];
+let strings = ['Pete', 'John', 'Alex'];
+let stringContainer = { value: 'John' }; //instance
+let numberContainer = { value: 2 }; // instance
+//class generic
+class Box {
+    constructor(value) {
+        this.value = value;
     }
-    // return `${this.name} - ${this.price}`
-    getPrice() {
-        return this.price;
+    getValue() {
+        return this.value;
     }
 }
-class PhysicalProduct extends Product {
-    constructor(id, name, price, weight) {
-        super(id, name, price);
-        this.weight = weight;
-    }
-    getShippingWeight() {
-        return this.weight;
-    }
-    getInfo() {
-        return `${this.weight}`;
+let num = new Box(4);
+let str = new Box('John');
+// class with method generic
+class Logger {
+    log(message) {
+        return message;
     }
 }
-class DigitalProduct extends Product {
-    constructor(id, name, price, fileSize) {
-        super(id, name, price);
-        this.fileSize = fileSize;
-    }
-    getInfo() {
-        return `${this.fileSize}`;
-    }
-    getDownloadSize() {
-        return this.fileSize;
-    }
+// homework
+function identify(item) {
+    return item;
 }
-class User {
-    constructor(name, email) {
-        this.cart = [];
-        this.id = User.generateId(),
-            this.name = name,
-            this.email = email;
+let UserResponce = {
+    status: 200,
+    data: {
+        id: 1,
+        name: 'John'
+    },
+    message: 'User logged in'
+};
+class UniqueSet {
+    constructor() {
+        this.setArr = [];
     }
-    addToCart(product) {
-        this.cart.push(product);
-    }
-    showCart() {
-        this.cart.forEach((prod) => console.log(prod.getInfo()));
-    }
-    clearCart() {
-        this.cart = [];
-    }
-    static generateId() {
-        return User.userCount++;
-    }
-}
-User.userCount = 0;
-class OrderItem {
-    constructor(name, price, quantity, createdAt) {
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-        this.createdAt = createdAt;
-    }
-    getTotalPrice() {
-        return this.price * this.quantity;
-    }
-}
-class FoodItem extends OrderItem {
-    constructor(name, price, quantity, createdAt, isVegan) {
-        super(name, price, quantity, createdAt);
-        this.isVegan = isVegan;
-    }
-    getInfo() {
-        return `${this.name} - Vegan: ${this.isVegan} - Ordered at: ${this.createdAt}`;
-    }
-}
-class DrinkItem extends OrderItem {
-    constructor(name, price, quantity, createdAt, isAlcoholic) {
-        super(name, price, quantity, createdAt);
-        this.isAlcoholic = isAlcoholic;
-    }
-    getInfo() {
-        return `${this.name} - Alcoholic: ${this.isAlcoholic} - Ordered at: ${this.createdAt}`;
-    }
-}
-class CustomedOrder {
-    constructor(items = []) {
-        this.items = [];
-        this.items = items;
-    }
-    addItem(arg1, arg2, arg3, arg4) {
-        if (arg1 instanceof OrderItem) {
-            this.items.push(arg1);
-        }
-        else if (typeof arg1 === 'string' && typeof arg2 === 'number' && typeof arg3 === 'number' && typeof arg4 === 'string') {
-            let now = new Date();
-            if (arg4 === 'food') {
-                this.items.push(new FoodItem(arg1, arg2, arg3, now, true)); // допустим, всегда vegan = true для примера
-            }
-            else if (arg4 === 'drink') {
-                this.items.push(new DrinkItem(arg1, arg2, arg3, now, false)); // допустим, всегда isAlcoholic = false
-            }
-        }
-        else {
-            console.log('Invalid arguments provided to addItem');
+    add(item) {
+        if (!this.setArr.includes(item)) {
+            this.setArr.push(item);
         }
     }
-    getOrderSummary() {
-        console.log("Order summary: ");
-        this.items.forEach((item, index) => {
-            console.log(`${index + 1}. ${item.getInfo()} - Total Price: $${item.getTotalPrice()}`);
-        });
+    remove(item) {
+        let index = this.setArr.indexOf(item);
+        if (index !== -1) {
+            this.setArr.splice(index, 1);
+        }
+    }
+    has(item) {
+        return this.setArr.includes(item);
+    }
+    values() {
+        return this.setArr;
+    }
+    size() {
+        return this.setArr.length;
     }
 }
+let set = new UniqueSet();
+set.add(1);
+set.add(2);
+set.add(5);
+console.log(set);
+console.log(set.has(2));
+console.log(set.remove(2));
+console.log(set.values());
+console.log(set.size());
